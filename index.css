@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Color tokens (derived from the Frame It Up logo + product world) ---- */
+  --color-ink: #0b0d16;          /* primary dark background — matches logo bg */
+  --color-ink-soft: #12141f;     /* slightly lifted dark panel */
+  --color-ink-line: #262a3a;     /* hairline borders on dark */
+  --color-paper: #f3ede1;        /* warm ivory print-paper background */
+  --color-paper-soft: #ece4d3;   /* card surface on paper */
+  --color-lime: #cbe83f;         /* brand accent, from logo */
+  --color-lime-dim: #a7c22f;
+  --color-brass: #c69a4e;        /* frame-hardware gold accent */
+  --color-brass-soft: #e3c689;
+  --color-maroon: #7a2a2e;       /* bridal-red accent */
+  --color-maroon-soft: #a94146;
+  --color-cream-text: #efe9dc;   /* body text on dark */
+  --color-mute: #9a9fae;         /* muted text on dark */
+  --color-mute-dark: #6b6456;    /* muted text on paper */
+
+  /* ---- Type ---- */
+  --font-display: "Fraunces", "Iowan Old Style", ui-serif, Georgia, serif;
+  --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --breakpoint-xs: 420px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-cream-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: var(--color-lime);
+    color: var(--color-ink);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-mono-label {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+  }
+
+  /* Signature "spec tag" — echoes the studio's own product-label handwriting
+     (Paper Size / Visual Size tags seen on their keychain + money-bank shots). */
+  .spec-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3em 0.65em;
+    background: var(--color-ink);
+    color: var(--color-lime);
+    border: 1px solid var(--color-lime-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    white-space: nowrap;
+  }
+
+  .frame-border {
+    box-shadow:
+      0 0 0 1px rgba(198, 154, 78, 0.35),
+      0 0 0 7px var(--color-ink-soft),
+      0 0 0 8px rgba(198, 154, 78, 0.5);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
